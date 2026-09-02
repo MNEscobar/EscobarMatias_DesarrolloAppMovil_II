@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EscobarMatias_DesarrolloAppMovil_II.Views.MainPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="0" MaximumWidthRequest="500"
+                              HorizontalOptions="Center" VerticalOptions="Center">
+
+            <!-- Tarjeta principal: se separa del fondo de la página con color y sombra -->
+            <Border StrokeShape="RoundRectangle 24"
+                    Padding="24"
+                    Stroke="Transparent"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.15" Radius="24" Offset="0,10" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="18">
+
+                    <!-- Avatar con anillo de color -->
+                    <Border Stroke="{StaticResource Primary}"
+                            StrokeThickness="3"
+                            StrokeShape="Ellipse"
+                            BackgroundColor="Transparent"
+                            Padding="3"
+                            WidthRequest="156" HeightRequest="156"
+                            HorizontalOptions="Center">
+                        <Image Source="{Binding ProfileImageUrl}"
+                               WidthRequest="150" HeightRequest="150"
+                               Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75" />
+                            </Image.Clip>
+                        </Image>
+                    </Border>
+
+                    <!-- Badge de estado del sistema: una sola fuente de verdad sobre
+                         qué está pasando (guardando / con errores / sin guardar / guardado) -->
+                    <Border StrokeShape="RoundRectangle 20"
+                            BackgroundColor="{Binding StatusColor}"
+                            Stroke="Transparent"
+                            Padding="16,8"
+                            HorizontalOptions="Center">
+                        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                               IsVisible="{Binding IsBusy}"
+                                               Color="White"
+                                               WidthRequest="16" HeightRequest="16" />
+                            <Label Text="{Binding StatusText}"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="13"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- Campos editables. Se deshabilitan en bloque mientras se está guardando. -->
+                    <VerticalStackLayout Spacing="14" IsEnabled="{Binding IsNotBusy}">
+
+                        <!-- Nombre -->
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="NOMBRE COMPLETO" FontSize="12" FontAttributes="Bold"
+                                   CharacterSpacing="0.5"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                            <Border StrokeShape="RoundRectangle 10" Padding="12,2">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding HasNameError}" Value="True">
+                                        <Setter Property="Stroke" Value="Red" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Ingresa tu nombre" />
+                            </Border>
+                            <Label Text="{Binding NameError}" TextColor="Red" FontSize="12"
+                                   IsVisible="{Binding HasNameError}" />
+                        </VerticalStackLayout>
+
+                        <!-- Edad (bindeada como texto, ver ProfileViewModel.AgeText) -->
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="EDAD" FontSize="12" FontAttributes="Bold"
+                                   CharacterSpacing="0.5"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                            <Border StrokeShape="RoundRectangle 10" Padding="12,2">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding HasAgeError}" Value="True">
+                                        <Setter Property="Stroke" Value="Red" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Entry Text="{Binding AgeText, Mode=TwoWay}" Keyboard="Numeric" Placeholder="Ingresa tu edad" />
+                            </Border>
+                            <Label Text="{Binding AgeError}" TextColor="Red" FontSize="12"
+                                   IsVisible="{Binding HasAgeError}" />
+                        </VerticalStackLayout>
+
+                        <!-- Descripción -->
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="SOBRE MÍ" FontSize="12" FontAttributes="Bold"
+                                   CharacterSpacing="0.5"
+                                   TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                            <Border StrokeShape="RoundRectangle 10" Padding="12,8">
+                                <Border.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding HasDescriptionError}" Value="True">
+                                        <Setter Property="Stroke" Value="Red" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Editor Text="{Binding Description, Mode=TwoWay}" HeightRequest="90"
+                                        Placeholder="Escribe una breve descripción" />
+                            </Border>
+                            <Label Text="{Binding DescriptionError}" TextColor="Red" FontSize="12"
+                                   IsVisible="{Binding HasDescriptionError}" />
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <!-- Botón Guardar: sin colores fijos, así se ve el estado "Disabled"
+                         ya definido en Styles.xaml cuando el Command no puede ejecutarse. -->
+                    <Button Text="Guardar Perfil"
+                            Command="{Binding SaveCommand}"
+                            Margin="0,10,0,0"/>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

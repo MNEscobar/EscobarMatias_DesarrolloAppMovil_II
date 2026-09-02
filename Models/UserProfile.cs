@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EscobarMatias_DesarrolloAppMovil_II.Models
+{
+    class UserProfile
+    {
+        public string? Name { get; set; }
+        public int Age { get; set; }
+        public string? Description { get; set; }
+        public string? ProfileImageUrl { get; set; }
+    }
+}

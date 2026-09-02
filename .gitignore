@@ -1,0 +1,20 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Builds específicos de MAUI (Android/iOS)
+*.apk
+*.aab
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Varios
+.DS_Store
+Thumbs.db
+*.log
