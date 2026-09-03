@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Silueta de perfil por defecto: forma geométrica simple (recurso local) -->
+  <circle cx="50" cy="50" r="50" fill="#DFD8F7" />
+  <circle cx="50" cy="38" r="18" fill="#512BD4" />
+  <path d="M18,88 C18,64 82,64 82,88 Z" fill="#512BD4" />
+</svg>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EscobarMatias_DesarrolloAppMovil_II.Views.CatalogoPage"
+             Title="Catalogo"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+    <Grid RowDefinitions="Auto,*" Padding="16">
+
+        <!-- Encabezado con el ícono animado del carrito (recurso LOCAL, ver
+             Resources/Images/cart_icon.svg). La animación se dispara desde
+             CatalogoPage.xaml.cs, OnAppearing (ver comentario ahí). -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" Margin="0,0,0,12">
+            <Image x:Name="CartIcon" Source="cart_icon.svg" WidthRequest="34" HeightRequest="34" />
+            <Label Text="Catálogo de Productos" FontSize="22" FontAttributes="Bold" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="1"
+                         ItemsSource="{Binding Productos}"
+                         SelectionMode="Single"
+                         SelectedItem="{Binding ProductoSeleccionado, Mode=TwoWay}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Product">
+                    <Border StrokeShape="RoundRectangle 16" Padding="12" Stroke="Transparent"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.08" Radius="12" Offset="0,4" />
+                        </Border.Shadow>
+                        <Grid ColumnDefinitions="70,*" ColumnSpacing="14">
+                            <Border Grid.Column="0" StrokeShape="RoundRectangle 12" Stroke="Transparent"
+                                    WidthRequest="70" HeightRequest="70" Padding="0">
+                                <Image Source="{Binding ImagenUrl}" Aspect="AspectFill" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Descripcion}" FontSize="12" LineBreakMode="TailTruncation"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                                <Label Text="{Binding Precio, StringFormat='$ {0:N2}'}" FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

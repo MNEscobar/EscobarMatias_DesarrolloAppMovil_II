@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EscobarMatias_DesarrolloAppMovil_II.Views.LoginPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" MaximumWidthRequest="450"
+                              HorizontalOptions="Center" VerticalOptions="Center">
+
+            <Border StrokeShape="RoundRectangle 24" Padding="28" Stroke="Transparent"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.15" Radius="24" Offset="0,10" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Iniciar sesión" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Catálogo de Productos" FontSize="13"
+                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}"
+                           HorizontalOptions="Center" Margin="0,0,0,10" />
+
+                    <!-- Nombre -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="NOMBRE" FontSize="12" FontAttributes="Bold" CharacterSpacing="0.5"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                        <Border StrokeShape="RoundRectangle 10" Padding="12,2">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasNombreError}" Value="True">
+                                    <Setter Property="Stroke" Value="Red" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Entry Text="{Binding Nombre, Mode=TwoWay}" Placeholder="¿Cómo te llamás?" />
+                        </Border>
+                        <Label Text="{Binding NombreError}" TextColor="Red" FontSize="12" IsVisible="{Binding HasNombreError}" />
+                    </VerticalStackLayout>
+
+                    <!-- Correo -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="CORREO" FontSize="12" FontAttributes="Bold" CharacterSpacing="0.5"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                        <Border StrokeShape="RoundRectangle 10" Padding="12,2">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasEmailError}" Value="True">
+                                    <Setter Property="Stroke" Value="Red" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email" Placeholder="nombre@correo.com" />
+                        </Border>
+                        <Label Text="{Binding EmailError}" TextColor="Red" FontSize="12" IsVisible="{Binding HasEmailError}" />
+                    </VerticalStackLayout>
+
+                    <!-- Contraseña -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="CONTRASEÑA" FontSize="12" FontAttributes="Bold" CharacterSpacing="0.5"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}" />
+                        <Border StrokeShape="RoundRectangle 10" Padding="12,2">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding HasPasswordError}" Value="True">
+                                    <Setter Property="Stroke" Value="Red" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Placeholder="Mínimo 8 caracteres" />
+                        </Border>
+                        <Label Text="{Binding PasswordError}" TextColor="Red" FontSize="12" IsVisible="{Binding HasPasswordError}" />
+                    </VerticalStackLayout>
+
+                    <Button Text="Ingresar" Command="{Binding LoginCommand}" Margin="0,10,0,0" />
+
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>
