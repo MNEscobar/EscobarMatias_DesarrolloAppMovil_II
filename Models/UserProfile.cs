@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscobarMatias_DesarrolloAppMovil_II.Models
 {
-    class UserProfile
+    public class UserProfile
     {
         public string? Name { get; set; }
         public int Age { get; set; }

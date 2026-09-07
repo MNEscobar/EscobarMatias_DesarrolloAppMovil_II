@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Carrito de compras: ícono geométrico simple (recurso local) -->
+  <polyline points="10,15 22,15 34,65 78,65 88,30 28,30"
+            fill="none" stroke="#512BD4" stroke-width="7"
+            stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="40" cy="82" r="8" fill="#512BD4" />
+  <circle cx="72" cy="82" r="8" fill="#512BD4" />
+</svg>

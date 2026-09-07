@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EscobarMatias_DesarrolloAppMovil_II.Views.PerfilPage"
+             Title="Perfil"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+
+    <VerticalStackLayout Padding="24" Spacing="18" VerticalOptions="Center" HorizontalOptions="Center">
+
+        <!-- Foto de perfil: silueta clásica por defecto (recurso LOCAL, ver
+             Resources/Images/profile_placeholder.svg) hasta que se elija otra. -->
+        <Border Stroke="{StaticResource Primary}" StrokeThickness="3" StrokeShape="Ellipse"
+                Padding="3" WidthRequest="146" HeightRequest="146" HorizontalOptions="Center">
+            <Image Source="{Binding FotoPerfil}" WidthRequest="140" HeightRequest="140" Aspect="AspectFill">
+                <Image.Clip>
+                    <EllipseGeometry Center="70,70" RadiusX="70" RadiusY="70" />
+                </Image.Clip>
+            </Image>
+        </Border>
+
+        <Label Text="{Binding NombreUsuario}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+
+        <Button Text="Editar foto de perfil" Command="{Binding EditarFotoCommand}" />
+
+    </VerticalStackLayout>
+
+</ContentPage>

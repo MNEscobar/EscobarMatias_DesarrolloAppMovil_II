@@ -6,8 +6,9 @@
     xmlns:views="clr-namespace:EscobarMatias_DesarrolloAppMovil_II.Views"
     Title="EscobarMatias_DesarrolloAppMovil_II">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent Title="Catálogo" Route="CatalogoPage" ContentTemplate="{DataTemplate views:CatalogoPage}" />
+        <ShellContent Title="Perfil" Route="PerfilPage" ContentTemplate="{DataTemplate views:PerfilPage}" />
+    </TabBar>
+    
 </Shell>
