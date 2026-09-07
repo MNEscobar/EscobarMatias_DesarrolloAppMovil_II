@@ -99,22 +99,32 @@ namespace EscobarMatias_DesarrolloAppMovil_II.ViewModels
 
             // Transmitimos el nombre ingresado al modelo UserProfile.
             _userProfile.Name = Nombre!.Trim();
+            
+            try
+            {
+                IsBusy = true;
 
-            await Toast.Make("Inicio de sesión exitoso.").Show();
+                // Toast seguro en hilo UI
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    try { await Toast.Make("Inicio de sesión exitoso.").Show(); } 
+                    catch { /* fallback: ignorar o log */ }
+                });
 
-            // -----------------------------------------------------------------
-            // ÚNICA EXCEPCIÓN a la regla "toda navegación con Shell.Current.GoToAsync":
-            // hasta este punto la app corre en LoginPage, FUERA del Shell (Shell.Current
-            // todavía no existe como raíz de la ventana, así que no hay nada a lo
-            // que hacer GoToAsync). Este paso no es una "navegación" entre páginas
-            // de Shell: es el arranque del Shell en sí, reemplazando la página raíz
-            // de la ventana por el AppShell ya armado (inyectado por DI).
-            // A partir de acá, TODA la navegación (Catálogo, Perfil, Detalle, Modal)
-            // sí pasa exclusivamente por Shell.Current.GoToAsync() desde los ViewModels.
-            // -----------------------------------------------------------------
-            Application.Current!.Windows[0].Page = _appShell;
-
-            IsBusy = false;
+                // Reemplazar raíz con AppShell en hilo UI
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Application.Current!.MainPage = _appShell; // más claro que Windows[0].Page
+                });
+            }
+            catch (Exception ex)
+            {
+                // loguear si quieres: Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

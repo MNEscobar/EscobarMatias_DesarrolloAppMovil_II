@@ -7,6 +7,7 @@ using CommunityToolkit.Maui.Alerts;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
 
 namespace EscobarMatias_DesarrolloAppMovil_II.ViewModels
 {
@@ -61,5 +62,28 @@ namespace EscobarMatias_DesarrolloAppMovil_II.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public interface IAppNavigator
+    {
+        Task SetMainShellAsync(Page shell);
+        Task ShowToastAsync(string message);
+    }
+
+    public class AppNavigator : IAppNavigator
+    {
+        public Task SetMainShellAsync(Page shell) =>
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                // opción más clara que Windows[0].Page
+                Application.Current!.MainPage = shell;
+            });
+
+        public Task ShowToastAsync(string message) =>
+            MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                try { await Toast.Make(message).Show(); }
+                catch { /* log o fallback a DisplayAlert */ }
+            });
     }
 }
